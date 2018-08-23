@@ -1,7 +1,8 @@
 package com.github.rhythmdiao.service.impl;
 
-import com.github.rhythmdiao.domain.wechat.BaseMsg;
-import com.github.rhythmdiao.domain.wechat.response.TextResponseMsg;
+import com.github.rhythmdiao.domain.menu.Menu;
+import com.github.rhythmdiao.domain.msg.BaseMsg;
+import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
 import com.github.rhythmdiao.service.IWechatService;
 import com.github.rhythmdiao.util.MsgConverter;
 import org.springframework.stereotype.Component;
@@ -39,5 +40,10 @@ public class WechatService implements IWechatService {
         Integer createTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000L);
         textResponseMsg.setCreateTime(createTime);
         return (T) textResponseMsg;
+    }
+
+    @Override
+    public String handleMenu(Menu menu, String cmd) {
+        return null;
     }
 }

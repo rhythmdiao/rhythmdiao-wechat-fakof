@@ -6,6 +6,8 @@ import com.github.rhythmdiao.util.client.HttpGetClient;
 import com.github.rhythmdiao.util.client.HttpProperty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,6 +23,7 @@ import java.util.Map;
 @Configuration
 @EnableScheduling
 public class AccessTokenController extends BaseController {
+    private static final Logger LOG = LoggerFactory.getLogger(AccessTokenController.class);
     @Value("${wechat.appid}")
     private String appID;
 
@@ -34,13 +37,17 @@ public class AccessTokenController extends BaseController {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    @Scheduled(cron = "* 0/120 * * * ?")
+    /**
+     * 每隔1小时刷新一次access token
+     */
+    @Scheduled(fixedDelay = 3600, initialDelay = 0)
     public void getToken() {
         HttpGetClient httpGetClient = new HttpGetClient("https", url);
         HttpProperty httpProperty = new HttpProperty();
-        String response = httpGetClient.execute("/cgi-bin/token?grant_type=" + GRANT_TYPE + "&appid=" + appID + "&secret=" + appSercet, httpProperty);
+        String response = httpGetClient.execute("/token?grant_type=" + GRANT_TYPE + "&appid=" + appID + "&secret=" + appSercet, httpProperty);
         Map map = GSON.fromJson(response, HashMap.class);
         if (map != null && map.get("access_token") != null) {
+            LOG.info("access_token:{}", map.get("access_token"));
             LocalCache.set("access_token", map.get("access_token"));
         }
     }

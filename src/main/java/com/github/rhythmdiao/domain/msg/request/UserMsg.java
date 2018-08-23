@@ -1,11 +1,11 @@
-package com.github.rhythmdiao.domain.wechat.request;
+package com.github.rhythmdiao.domain.msg.request;
 
-import com.github.rhythmdiao.domain.wechat.BaseMsg;
+import com.github.rhythmdiao.domain.msg.BaseMsg;
 
 /**
  * @author rhyth
  */
-public class RequestMsg extends BaseMsg {
+public class UserMsg extends BaseMsg {
     String Content;
 
     Long MsgId;

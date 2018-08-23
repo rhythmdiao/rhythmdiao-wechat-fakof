@@ -1,6 +1,6 @@
 package com.github.rhythmdiao.util;
 
-import com.github.rhythmdiao.domain.wechat.BaseMsg;
+import com.github.rhythmdiao.domain.msg.BaseMsg;
 import com.thoughtworks.xstream.XStream;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
