@@ -1,8 +1,9 @@
 package com.github.rhythmdiao.domain.wechat.response;
 
-import com.github.rhythmdiao.domain.wechat.BaseMsg;
-
-public class TextResponseMsg extends BaseMsg {
+/**
+ * @author rhyth
+ */
+public class TextResponseMsg extends ResponseMsg {
     private String Content;
 
     public String getContent() {
@@ -17,6 +18,10 @@ public class TextResponseMsg extends BaseMsg {
     public String toString() {
         return "TextResponseMsg{" +
                 "Content='" + Content + '\'' +
+                ", ToUserName='" + ToUserName + '\'' +
+                ", FromUserName='" + FromUserName + '\'' +
+                ", CreateTime=" + CreateTime +
+                ", MsgType='" + MsgType + '\'' +
                 '}';
     }
 }

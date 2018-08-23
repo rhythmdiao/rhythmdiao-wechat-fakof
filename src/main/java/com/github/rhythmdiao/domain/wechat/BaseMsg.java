@@ -4,10 +4,10 @@ package com.github.rhythmdiao.domain.wechat;
  * @author rhyth
  */
 public class BaseMsg {
-    private String ToUserName;
-    private String FromUserName;
-    private Integer CreateTime;
-    private String MsgType;
+    protected String ToUserName;
+    protected String FromUserName;
+    protected Integer CreateTime;
+    protected String MsgType;
 
     public String getToUserName() {
         return ToUserName;

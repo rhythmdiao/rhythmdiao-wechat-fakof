@@ -6,9 +6,9 @@ import com.github.rhythmdiao.domain.wechat.BaseMsg;
  * @author rhyth
  */
 public class RequestMsg extends BaseMsg {
-    private String Content;
+    String Content;
 
-    private Long MsgId;
+    Long MsgId;
 
     public String getContent() {
         return Content;
@@ -24,13 +24,5 @@ public class RequestMsg extends BaseMsg {
 
     public void setMsgId(Long msgId) {
         MsgId = msgId;
-    }
-
-    @Override
-    public String toString() {
-        return "RequestMsg{" +
-                "Content='" + Content + '\'' +
-                ", MsgId=" + MsgId +
-                '}';
     }
 }

@@ -14,9 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author rhyth
+ */
 public enum MsgConverter {
     ;
-    private static final String TEXT_MSG = "text";
+    public static final String TEXT_MSG = "text";
 
     @SuppressWarnings("unchecked")
     public static Map<String, String> xmlToMap(HttpServletRequest request) throws IOException {
