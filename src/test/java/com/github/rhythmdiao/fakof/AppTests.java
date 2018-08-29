@@ -1,6 +1,7 @@
 package com.github.rhythmdiao.fakof;
 
 import com.github.rhythmdiao.domain.menu.Menu;
+import com.github.rhythmdiao.service.RoomService;
 import com.github.rhythmdiao.util.LocalCache;
 import com.github.rhythmdiao.util.client.HttpPostClient;
 import com.github.rhythmdiao.util.client.HttpProperty;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,9 @@ public class AppTests {
 
     @Value("${wechat.url}")
     private String url;
+
+    @Resource
+    private RoomService roomService;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -55,5 +60,10 @@ public class AppTests {
         String response = httpPostClient.execute("/menu/create?access_token=" + String.valueOf(LocalCache.get("access_token")), httpProperty);
         Map map = GSON.fromJson(response, HashMap.class);
         LOG.info(map.toString());
+    }
+
+    @Test
+    public void createRoom() throws InterruptedException {
+
     }
 }

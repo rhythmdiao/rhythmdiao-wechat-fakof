@@ -20,6 +20,7 @@ import java.util.Map;
 public enum MsgConverter {
     ;
     public static final String TEXT_MSG = "text";
+    public static final String EVENT_MSG = "event";
 
     @SuppressWarnings("unchecked")
     public static Map<String, String> xmlToMap(HttpServletRequest request) throws IOException {

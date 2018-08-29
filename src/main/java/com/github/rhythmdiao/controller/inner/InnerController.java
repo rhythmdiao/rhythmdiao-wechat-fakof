@@ -1,7 +1,8 @@
 package com.github.rhythmdiao.controller.inner;
 
 import com.github.rhythmdiao.controller.BaseController;
-import com.github.rhythmdiao.service.IWechatService;
+import com.github.rhythmdiao.service.BaseMsgService;
+import com.github.rhythmdiao.service.impl.TextMsgService;
 import com.github.rhythmdiao.util.MsgConverter;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class InnerController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(InnerController.class);
     @Resource
-    private IWechatService wechatService;
+    private TextMsgService msgService;
 
     @RequestMapping(value = "/echo", method = RequestMethod.GET)
     public String echoGet(@RequestParam(value = "echostr") String echostr) {
@@ -40,7 +41,7 @@ public class InnerController extends BaseController {
             return "";
         }
 
-        TextResponseMsg textResponseMsg = wechatService.handleMsg(map);
+        TextResponseMsg textResponseMsg = msgService.handleMsg(map, map.get(BaseMsgService.KEYWORD_MSG_TYPE));
         return MsgConverter.textMessageToXml(textResponseMsg);
     }
 }

@@ -40,7 +40,7 @@ public class AccessTokenController extends BaseController {
     /**
      * 每隔1小时刷新一次access token
      */
-    @Scheduled(fixedDelay = 3600, initialDelay = 0)
+    @Scheduled(fixedDelay = 3600000, initialDelay = 0)
     public void getToken() {
         HttpGetClient httpGetClient = new HttpGetClient("https", url);
         HttpProperty httpProperty = new HttpProperty();

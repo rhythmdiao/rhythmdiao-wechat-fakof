@@ -32,14 +32,14 @@ public class Room {
     private Integer destroyTime;
 
     /**
-     * 当前成员数
+     * 房间成员
      */
-    private List<String> members;
+    private List<Player> playerList;
 
     /**
      * 最多成员数
      */
-    private Integer maxMembers;
+    private Integer maxPlayer;
 
     /**
      * 房间类型
@@ -83,20 +83,20 @@ public class Room {
         this.destroyTime = destroyTime;
     }
 
-    public List<String> getMembers() {
-        return members;
+    public List<Player> getPlayerList() {
+        return playerList;
     }
 
-    public void setMembers(List<String> members) {
-        this.members = members;
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
-    public Integer getMaxMembers() {
-        return maxMembers;
+    public Integer getMaxPlayer() {
+        return maxPlayer;
     }
 
-    public void setMaxMembers(Integer maxMembers) {
-        this.maxMembers = maxMembers;
+    public void setMaxPlayer(Integer maxPlayer) {
+        this.maxPlayer = maxPlayer;
     }
 
     public Type getType() {
