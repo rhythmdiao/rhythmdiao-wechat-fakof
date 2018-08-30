@@ -1,8 +1,8 @@
 package com.github.rhythmdiao.service;
 
 import com.github.rhythmdiao.domain.msg.BaseMsg;
-import com.github.rhythmdiao.service.impl.EventMsgService;
-import com.github.rhythmdiao.service.impl.TextMsgService;
+import com.github.rhythmdiao.service.msg.EventMsgService;
+import com.github.rhythmdiao.service.msg.TextMsgService;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +40,7 @@ public class MsgDispatcher {
             case "event":
                 return eventMsgService.handleMsg(map);
             default:
+                LOG.info("unknown msg type:{}", msgType);
                 return null;
         }
     }

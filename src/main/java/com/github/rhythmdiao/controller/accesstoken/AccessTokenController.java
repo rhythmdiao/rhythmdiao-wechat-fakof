@@ -1,5 +1,6 @@
 package com.github.rhythmdiao.controller.accesstoken;
 
+import com.github.rhythmdiao.WechatConfig;
 import com.github.rhythmdiao.controller.BaseController;
 import com.github.rhythmdiao.util.LocalCache;
 import com.github.rhythmdiao.util.client.HttpGetClient;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,14 +26,9 @@ import java.util.Map;
 @EnableScheduling
 public class AccessTokenController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(AccessTokenController.class);
-    @Value("${wechat.appid}")
-    private String appID;
 
-    @Value("${wechat.appsercet}")
-    private String appSercet;
-
-    @Value("${wechat.url}")
-    private String url;
+    @Resource
+    private WechatConfig wechatConfig;
 
     private static final String GRANT_TYPE = "client_credential";
 
@@ -42,9 +39,9 @@ public class AccessTokenController extends BaseController {
      */
     @Scheduled(fixedDelay = 3600000, initialDelay = 0)
     public void getToken() {
-        HttpGetClient httpGetClient = new HttpGetClient("https", url);
+        HttpGetClient httpGetClient = new HttpGetClient("https", wechatConfig.getUrl());
         HttpProperty httpProperty = new HttpProperty();
-        String response = httpGetClient.execute("/token?grant_type=" + GRANT_TYPE + "&appid=" + appID + "&secret=" + appSercet, httpProperty);
+        String response = httpGetClient.execute("/token?grant_type=" + GRANT_TYPE + "&appid=" + wechatConfig.getAppid() + "&secret=" + wechatConfig.getAppsercet(), httpProperty);
         Map map = GSON.fromJson(response, HashMap.class);
         if (map != null && map.get("access_token") != null) {
             LOG.info("access_token:{}", map.get("access_token"));

@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * @author rhyth
  */
 @Configuration
-public class WechatConfigurer implements WebMvcConfigurer {
+public class WechatRequestInterceptor implements WebMvcConfigurer {
     @Resource
     private InnerControllerInterceptor innerControllerInterceptor;
 

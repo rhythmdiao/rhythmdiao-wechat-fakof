@@ -17,6 +17,7 @@ public abstract class BaseMsgService {
     public static final String KEYWORD_CREATE_TIME = "CreateTime";
     public static final String KEYWORD_MSG_TYPE = "MsgType";
     public static final String KEYWORD_EVENT = "Event";
+    public static final String KEYWORD_CONTENT = "Content";
 
     /**
      * 初始化公共响应参数
@@ -25,18 +26,18 @@ public abstract class BaseMsgService {
      * @return BaseMsg
      */
     @SuppressWarnings("unchecked")
-    protected <T extends BaseMsg> T initTextResponseMsg(Map<String, String> map) {
+    protected TextResponseMsg initTextResponseMsg(Map<String, String> map) {
         TextResponseMsg textResponseMsg = new TextResponseMsg();
         textResponseMsg.setFromUserName(map.get(KEYWORD_TO_USER_NAME));
         textResponseMsg.setToUserName(map.get(KEYWORD_FROM_USER_NAME));
         textResponseMsg.setMsgType("text");
         Integer createTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000L);
         textResponseMsg.setCreateTime(createTime);
-        return (T) textResponseMsg;
+        return textResponseMsg;
     }
 
     /**
-     * 根据msgtype处理消息
+     * 微信消息处理函数
      *
      * @param map 请求消息映射
      * @return T extends BaseMsg

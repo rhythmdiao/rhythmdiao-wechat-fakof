@@ -1,8 +1,8 @@
-package com.github.rhythmdiao.service.impl;
+package com.github.rhythmdiao.service.fakof.impl;
 
 import com.github.rhythmdiao.domain.fun.Player;
 import com.github.rhythmdiao.domain.fun.Room;
-import com.github.rhythmdiao.service.RoomService;
+import com.github.rhythmdiao.service.fakof.RoomService;
 import com.github.rhythmdiao.util.LocalCache;
 import org.springframework.stereotype.Component;
 

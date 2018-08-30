@@ -1,9 +1,7 @@
 package com.github.rhythmdiao.controller.inner;
 
 import com.github.rhythmdiao.controller.BaseController;
-import com.github.rhythmdiao.service.BaseMsgService;
 import com.github.rhythmdiao.service.MsgDispatcher;
-import com.github.rhythmdiao.service.impl.TextMsgService;
 import com.github.rhythmdiao.util.MsgConverter;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
 import org.slf4j.Logger;
@@ -20,6 +18,7 @@ import java.util.Map;
 
 /**
  * @author rhyth
+ * 微信消息接口
  */
 @RestController
 public class InnerController extends BaseController {

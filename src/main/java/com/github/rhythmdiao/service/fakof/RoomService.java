@@ -1,4 +1,4 @@
-package com.github.rhythmdiao.service;
+package com.github.rhythmdiao.service.fakof;
 
 import com.github.rhythmdiao.domain.fun.Player;
 import com.github.rhythmdiao.domain.fun.Room;

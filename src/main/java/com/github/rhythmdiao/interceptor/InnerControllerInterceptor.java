@@ -1,5 +1,6 @@
 package com.github.rhythmdiao.interceptor;
 
+import com.github.rhythmdiao.WechatConfig;
 import com.github.rhythmdiao.util.CheckUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 public class InnerControllerInterceptor implements HandlerInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(InnerControllerInterceptor.class);
 
-    @Value("${wechat.token}")
-    protected String token;
+    @Resource
+    private WechatConfig wechatConfig;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -40,6 +42,6 @@ public class InnerControllerInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        return CheckUtil.checkSignature(token, signature, timestamp, nonce);
+        return CheckUtil.checkSignature(wechatConfig.getToken(), signature, timestamp, nonce);
     }
 }

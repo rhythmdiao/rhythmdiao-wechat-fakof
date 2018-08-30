@@ -1,14 +1,15 @@
-package com.github.rhythmdiao.service.impl;
+package com.github.rhythmdiao.service.msg;
 
+import com.github.rhythmdiao.WechatConfig;
 import com.github.rhythmdiao.domain.msg.BaseMsg;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
 import com.github.rhythmdiao.service.BaseMsgService;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -19,26 +20,27 @@ import java.util.Map;
 public class EventMsgService extends BaseMsgService {
     private static final Logger LOG = LoggerFactory.getLogger(EventMsgService.class);
 
-    @Value("${wechat.subscribe}")
-    private String subscribeText;
+    @Resource
+    private WechatConfig wechatConfig;
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends BaseMsg> T handleMsg(Map<String, String> map) {
         final String event = map.get(BaseMsgService.KEYWORD_EVENT);
         if (Strings.isNullOrEmpty(event)) {
+            LOG.info("empty event");
             return null;
         }
         switch (event) {
             case "subscribe":
                 TextResponseMsg textResponseMsg = super.initTextResponseMsg(map);
-                textResponseMsg.setContent(subscribeText);
+                textResponseMsg.setContent(wechatConfig.getSubscribe());
                 return (T) textResponseMsg;
             case "unsubscribe":
-                break;
+                return null;
             default:
+                LOG.info("unknown event:{}", event);
                 return null;
         }
-        return null;
     }
 }
