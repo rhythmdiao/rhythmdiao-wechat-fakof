@@ -1,9 +1,7 @@
 package com.github.rhythmdiao.service;
 
 import com.github.rhythmdiao.domain.msg.BaseMsg;
-import com.github.rhythmdiao.domain.msg.response.ResponseMsg;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
-import com.github.rhythmdiao.util.MsgConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
@@ -18,8 +16,7 @@ public abstract class BaseMsgService {
     public static final String KEYWORD_FROM_USER_NAME = "FromUserName";
     public static final String KEYWORD_CREATE_TIME = "CreateTime";
     public static final String KEYWORD_MSG_TYPE = "MsgType";
-
-    protected String msgType;
+    public static final String KEYWORD_EVENT = "Event";
 
     /**
      * 初始化公共响应参数
@@ -27,14 +24,22 @@ public abstract class BaseMsgService {
      * @param map 消息映射
      * @return BaseMsg
      */
-    protected abstract <T extends BaseMsg> T initResponseMsg(Map<String, String> map);
+    @SuppressWarnings("unchecked")
+    protected <T extends BaseMsg> T initTextResponseMsg(Map<String, String> map) {
+        TextResponseMsg textResponseMsg = new TextResponseMsg();
+        textResponseMsg.setFromUserName(map.get(KEYWORD_TO_USER_NAME));
+        textResponseMsg.setToUserName(map.get(KEYWORD_FROM_USER_NAME));
+        textResponseMsg.setMsgType("text");
+        Integer createTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000L);
+        textResponseMsg.setCreateTime(createTime);
+        return (T) textResponseMsg;
+    }
 
     /**
      * 根据msgtype处理消息
      *
-     * @param map     消息映射
-     * @param msgType 消息类型
-     * @return BaseMsg
+     * @param map 请求消息映射
+     * @return T extends BaseMsg
      */
-    public abstract <T extends BaseMsg> T handleMsg(Map<String, String> map, String msgType);
+    public abstract <T extends BaseMsg> T handleMsg(Map<String, String> map);
 }

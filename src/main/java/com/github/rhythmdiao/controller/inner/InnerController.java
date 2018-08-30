@@ -2,6 +2,7 @@ package com.github.rhythmdiao.controller.inner;
 
 import com.github.rhythmdiao.controller.BaseController;
 import com.github.rhythmdiao.service.BaseMsgService;
+import com.github.rhythmdiao.service.MsgDispatcher;
 import com.github.rhythmdiao.service.impl.TextMsgService;
 import com.github.rhythmdiao.util.MsgConverter;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class InnerController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(InnerController.class);
     @Resource
-    private TextMsgService msgService;
+    private MsgDispatcher msgDispatcher;
 
     @RequestMapping(value = "/echo", method = RequestMethod.GET)
     public String echoGet(@RequestParam(value = "echostr") String echostr) {
@@ -41,7 +42,9 @@ public class InnerController extends BaseController {
             return "";
         }
 
-        TextResponseMsg textResponseMsg = msgService.handleMsg(map, map.get(BaseMsgService.KEYWORD_MSG_TYPE));
-        return MsgConverter.textMessageToXml(textResponseMsg);
+        TextResponseMsg textResponseMsg = msgDispatcher.dispatch(map);
+        String result = MsgConverter.textMessageToXml(textResponseMsg);
+        LOG.info("result:{}", result);
+        return result;
     }
 }

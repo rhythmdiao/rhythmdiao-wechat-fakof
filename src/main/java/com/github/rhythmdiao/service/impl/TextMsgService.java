@@ -1,10 +1,12 @@
 package com.github.rhythmdiao.service.impl;
 
+import com.github.rhythmdiao.WechatConfig;
 import com.github.rhythmdiao.domain.msg.BaseMsg;
 import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
 import com.github.rhythmdiao.service.BaseMsgService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -13,27 +15,14 @@ import java.util.Map;
  */
 @Component
 public class TextMsgService extends BaseMsgService {
-    TextMsgService() {
-        this.msgType = "text";
-    }
+    @Resource
+    private WechatConfig wechatConfig;
 
     @Override
     @SuppressWarnings("unchecked")
-    protected <T extends BaseMsg> T initResponseMsg(Map<String, String> map) {
-        TextResponseMsg textResponseMsg = new TextResponseMsg();
-        textResponseMsg.setFromUserName(map.get(KEYWORD_TO_USER_NAME));
-        textResponseMsg.setToUserName(map.get(KEYWORD_FROM_USER_NAME));
-        Integer createTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000L);
-        textResponseMsg.setCreateTime(createTime);
-        return (T) textResponseMsg;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends BaseMsg> T handleMsg(Map<String, String> map, String msgType) {
-        TextResponseMsg textResponseMsg = this.initResponseMsg(map);
-        textResponseMsg.setMsgType(this.msgType);
-        textResponseMsg.setContent("Hello World");
+    public <T extends BaseMsg> T handleMsg(Map<String, String> map) {
+        TextResponseMsg textResponseMsg = super.initTextResponseMsg(map);
+        textResponseMsg.setContent(wechatConfig.getSubscribe());
         return (T) textResponseMsg;
     }
 }
