@@ -1,6 +1,6 @@
 package com.github.rhythmdiao.fakof;
 
-import com.github.rhythmdiao.domain.menu.Menu;
+import com.github.rhythmdiao.domain.wechat.menu.Menu;
 import com.github.rhythmdiao.service.fakof.RoomService;
 import com.github.rhythmdiao.util.LocalCache;
 import com.github.rhythmdiao.util.client.HttpPostClient;

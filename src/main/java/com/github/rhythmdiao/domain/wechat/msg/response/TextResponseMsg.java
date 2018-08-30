@@ -1,14 +1,23 @@
-package com.github.rhythmdiao.domain.msg.request;
+package com.github.rhythmdiao.domain.wechat.msg.response;
 
 /**
  * @author rhyth
  */
-public class UserTextMsg extends UserMsg {
+public class TextResponseMsg extends ResponseMsg {
+    private String Content;
+
+    public String getContent() {
+        return Content;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
     @Override
     public String toString() {
-        return "UserTextMsg{" +
+        return "TextResponseMsg{" +
                 "Content='" + Content + '\'' +
-                ", MsgId=" + MsgId +
                 ", ToUserName='" + ToUserName + '\'' +
                 ", FromUserName='" + FromUserName + '\'' +
                 ", CreateTime=" + CreateTime +

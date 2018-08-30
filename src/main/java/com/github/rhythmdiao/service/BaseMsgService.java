@@ -1,7 +1,8 @@
 package com.github.rhythmdiao.service;
 
-import com.github.rhythmdiao.domain.msg.BaseMsg;
-import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
+import com.github.rhythmdiao.domain.wechat.msg.BaseMsg;
+import com.github.rhythmdiao.domain.wechat.msg.request.WechatMsg;
+import com.github.rhythmdiao.domain.wechat.msg.response.TextResponseMsg;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
@@ -22,14 +23,14 @@ public abstract class BaseMsgService {
     /**
      * 初始化公共响应参数
      *
-     * @param map 消息映射
+     * @param wechatMsg 请求消息对象
      * @return BaseMsg
      */
     @SuppressWarnings("unchecked")
-    protected TextResponseMsg initTextResponseMsg(Map<String, String> map) {
+    protected TextResponseMsg initTextResponseMsg(WechatMsg wechatMsg) {
         TextResponseMsg textResponseMsg = new TextResponseMsg();
-        textResponseMsg.setFromUserName(map.get(KEYWORD_TO_USER_NAME));
-        textResponseMsg.setToUserName(map.get(KEYWORD_FROM_USER_NAME));
+        textResponseMsg.setFromUserName(wechatMsg.getToUserName());
+        textResponseMsg.setToUserName(wechatMsg.getFromUserName());
         textResponseMsg.setMsgType("text");
         Integer createTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000L);
         textResponseMsg.setCreateTime(createTime);
@@ -39,8 +40,8 @@ public abstract class BaseMsgService {
     /**
      * 微信消息处理函数
      *
-     * @param map 请求消息映射
+     * @param wechatMsg 请求消息对象
      * @return T extends BaseMsg
      */
-    public abstract <T extends BaseMsg> T handleMsg(Map<String, String> map);
+    public abstract <T extends BaseMsg> T handleMsg(WechatMsg wechatMsg);
 }

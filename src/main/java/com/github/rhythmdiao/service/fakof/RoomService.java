@@ -1,7 +1,7 @@
 package com.github.rhythmdiao.service.fakof;
 
-import com.github.rhythmdiao.domain.fun.Player;
-import com.github.rhythmdiao.domain.fun.Room;
+import com.github.rhythmdiao.domain.fakof.Player;
+import com.github.rhythmdiao.domain.fakof.Room;
 
 /**
  * @author rhyth

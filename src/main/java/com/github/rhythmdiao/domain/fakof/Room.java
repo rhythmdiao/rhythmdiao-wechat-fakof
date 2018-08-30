@@ -1,4 +1,4 @@
-package com.github.rhythmdiao.domain.fun;
+package com.github.rhythmdiao.domain.fakof;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.github.rhythmdiao.service;
 
-import com.github.rhythmdiao.domain.msg.BaseMsg;
+import com.github.rhythmdiao.domain.wechat.msg.BaseMsg;
+import com.github.rhythmdiao.domain.wechat.msg.request.WechatMsg;
 import com.github.rhythmdiao.service.msg.EventMsgService;
 import com.github.rhythmdiao.service.msg.TextMsgService;
 import com.google.common.base.Strings;
@@ -24,21 +25,21 @@ public class MsgDispatcher {
 
     private static final Logger LOG = LoggerFactory.getLogger(MsgDispatcher.class);
 
-    public <T extends BaseMsg> T dispatch(Map<String, String> map) {
-        if (map == null || map.size() == 0) {
+    public <T extends BaseMsg> T dispatch(WechatMsg wechatMsg) {
+        if (wechatMsg == null) {
             LOG.info("empty request");
             return null;
         }
-        String msgType = map.get(BaseMsgService.KEYWORD_MSG_TYPE);
+        String msgType = wechatMsg.getMsgType();
         if (Strings.isNullOrEmpty(msgType)) {
             LOG.info("invalid msg type");
             return null;
         }
         switch (msgType) {
             case "text":
-                return textMsgService.handleMsg(map);
+                return textMsgService.handleMsg(wechatMsg);
             case "event":
-                return eventMsgService.handleMsg(map);
+                return eventMsgService.handleMsg(wechatMsg);
             default:
                 LOG.info("unknown msg type:{}", msgType);
                 return null;

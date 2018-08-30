@@ -1,4 +1,4 @@
-package com.github.rhythmdiao.domain.fun;
+package com.github.rhythmdiao.domain.fakof;
 
 public class Player {
     /**

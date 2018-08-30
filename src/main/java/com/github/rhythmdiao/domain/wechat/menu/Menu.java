@@ -1,4 +1,4 @@
-package com.github.rhythmdiao.domain.menu;
+package com.github.rhythmdiao.domain.wechat.menu;
 
 import java.util.List;
 

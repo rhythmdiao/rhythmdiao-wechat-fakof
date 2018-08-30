@@ -1,9 +1,10 @@
 package com.github.rhythmdiao.controller.inner;
 
 import com.github.rhythmdiao.controller.BaseController;
+import com.github.rhythmdiao.domain.wechat.msg.request.WechatMsg;
 import com.github.rhythmdiao.service.MsgDispatcher;
-import com.github.rhythmdiao.util.MsgConverter;
-import com.github.rhythmdiao.domain.msg.response.TextResponseMsg;
+import com.github.rhythmdiao.service.MsgConverter;
+import com.github.rhythmdiao.domain.wechat.msg.response.TextResponseMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author rhyth
@@ -33,15 +32,16 @@ public class InnerController extends BaseController {
 
     @RequestMapping(value = "/echo", method = RequestMethod.POST)
     public String echoPost(HttpServletRequest request) {
-        Map<String, String> map;
+        WechatMsg wechatMsg;
         try {
-            map = MsgConverter.xmlToMap(request);
-        } catch (IOException e) {
+            wechatMsg = MsgConverter.xmlToObject(request, WechatMsg.class);
+            LOG.info(wechatMsg.toString());
+        } catch (Exception e) {
             LOG.error(e.toString());
             return "";
         }
 
-        TextResponseMsg textResponseMsg = msgDispatcher.dispatch(map);
+        TextResponseMsg textResponseMsg = msgDispatcher.dispatch(wechatMsg);
         String result = MsgConverter.textMessageToXml(textResponseMsg);
         LOG.info("result:{}", result);
         return result;

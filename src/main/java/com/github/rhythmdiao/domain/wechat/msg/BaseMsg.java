@@ -1,4 +1,4 @@
-package com.github.rhythmdiao.domain.msg;
+package com.github.rhythmdiao.domain.wechat.msg;
 
 /**
  * @author rhyth
