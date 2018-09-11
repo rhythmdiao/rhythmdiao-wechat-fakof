@@ -43,7 +43,7 @@ public class InnerController extends BaseController {
 
         TextResponseMsg textResponseMsg = msgDispatcher.dispatch(wechatMsg);
         String result = MsgConverter.textMessageToXml(textResponseMsg);
-        LOG.info("result:{}", result);
+        LOG.info("result:\n{}", result);
         return result;
     }
 }

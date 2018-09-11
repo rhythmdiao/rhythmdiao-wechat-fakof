@@ -1,6 +1,5 @@
 package com.github.rhythmdiao.domain.wechat.msg.request;
 
-import com.google.common.base.MoreObjects;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("xml")
@@ -73,6 +72,13 @@ public class WechatMsg {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).toString();
+        return "WechatMsg\n{" +
+                "toUserName='" + toUserName + '\'' +
+                ", fromUserName='" + fromUserName + '\'' +
+                ", createTime=" + createTime +
+                ", msgType='" + msgType + '\'' +
+                ", content='" + content + '\'' +
+                ", msgId=" + msgId +
+                '}';
     }
 }
